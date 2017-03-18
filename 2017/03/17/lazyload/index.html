@@ -11,14 +11,14 @@
 <meta property="og:url" content="www.praint.cn/2017/03/17/lazyload/index.html">
 <meta property="og:site_name" content="Rain Web">
 <meta property="og:description" content="滚动加载（懒加载）图片一、    什么是图片滚动加载？图片滚动加载，也就是懒加载（lazyload），它用于延迟加载长页面中的图片，在浏览器可视区域外的图片不会被载入，当进入可视区域时图片才会被加载出来。">
-<meta property="og:image" content="www.praint.cn/1.jpg">
-<meta property="og:image" content="www.praint.cn/2.jpg">
-<meta property="og:image" content="www.praint.cn/3.jpg">
-<meta property="og:updated_time" content="2017-03-17T15:41:05.751Z">
+<meta property="og:image" content="www.praint.cn/1.png">
+<meta property="og:image" content="www.praint.cn/2.png">
+<meta property="og:image" content="www.praint.cn/3.png">
+<meta property="og:updated_time" content="2017-03-18T01:57:30.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lazyload">
 <meta name="twitter:description" content="滚动加载（懒加载）图片一、    什么是图片滚动加载？图片滚动加载，也就是懒加载（lazyload），它用于延迟加载长页面中的图片，在浏览器可视区域外的图片不会被载入，当进入可视区域时图片才会被加载出来。">
-<meta name="twitter:image" content="www.praint.cn/1.jpg">
+<meta name="twitter:image" content="www.praint.cn/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Rain Web" type="application/atom+xml">
   
@@ -101,14 +101,14 @@
 <a id="more"></a>
 <h3 id="二、-为什么要使用懒加载技术"><a href="#二、-为什么要使用懒加载技术" class="headerlink" title="二、    为什么要使用懒加载技术"></a>二、    为什么要使用懒加载技术</h3><p>当一个网页中含有大量图片时，只有所有的图片被加载下来之后，整个页面才会展现出来。往往这个过程是缓慢的。如果用户一直不会浏览到底部的图片而我们却在开始就把所有的图片下载出来，用户需要等待大量的时间，大大增加了用户的跳出率。减少了网站对用户的黏度。其实对于这个页面来说，用户是从上到下浏览的，而当用户浏览页面的顶部时，我们没有必要也给用户加载底端的图片，只要加载用户可以看到的页面内部的图片就可以了。<br><br>所以lazyload就是基于这个场景设计的。只加载用户看到的页面的图片。其他的图片先不加载，等到用户看到时，再加载。lazyload应用电商网站或者是需要大量排布图片的网站上，可以有效地减少服务器负担，节省资源，加快浏览速度，从而提升用户浏览体验。</p>
 <h3 id="三、-怎么实现懒加载"><a href="#三、-怎么实现懒加载" class="headerlink" title="三、    怎么实现懒加载"></a>三、    怎么实现懒加载</h3><p>懒加载有现成的jq插件——lazyload.js使用，这个插件十分的快捷方便。<br>在讲解lazyload的使用之前，我们先了解一下实现lazyload的一些知识，了解这些知识我们可以自己用jquery或者原生js写出lazyload的加载效果</p>
-<p><img src="1.jpg" alt="图1"></p>
-<h4 id="1-可视区域宽度-高度-1-2"><a href="#1-可视区域宽度-高度-1-2" class="headerlink" title="1.    可视区域宽度/高度(1/2)"></a>1.    可视区域宽度/高度(1/2)</h4><p>原生js方法：<br>jq方法：<code>$(window).width()/$(window).height()</code></p>
-<h4 id="2-水平-垂直滚动距离-3-4"><a href="#2-水平-垂直滚动距离-3-4" class="headerlink" title="2.    水平/垂直滚动距离(3/4)"></a>2.    水平/垂直滚动距离(3/4)</h4><p>原生js方法：<br>jq方法：<code>$(document).scrollTop()/$(document).scrollTop()</code></p>
+<p><img src="1.png" alt="图1"></p>
+<h4 id="1-可视区域宽度-高度-1-2"><a href="#1-可视区域宽度-高度-1-2" class="headerlink" title="1.    可视区域宽度/高度(1/2)"></a>1.    可视区域宽度/高度(1/2)</h4><p>原生js方法：<code>window.innerWidth</code>/<code>document.documentElement.offsetWidth</code>(IE不含滚动条)/<code>document.documentElement.clientwidth</code>(IE含滚动条)<br>jq方法：<code>$(window).width()/$(window).height()</code></p>
+<h4 id="2-水平-垂直滚动距离-3-4"><a href="#2-水平-垂直滚动距离-3-4" class="headerlink" title="2.    水平/垂直滚动距离(3/4)"></a>2.    水平/垂直滚动距离(3/4)</h4><p>原生js方法：把<code>onscroll</code>事件绑定到<code>window</code>对象上通过获取<code>document.documentElement.scrollTop</code>和<code>document.body.scrollTop</code>两者之间较大值为网页的真实滚动高度<br>jq方法：<code>$(document).scrollTop()/$(document).scrollTop()</code></p>
 <h4 id="3-元素宽度-高度（5-6）"><a href="#3-元素宽度-高度（5-6）" class="headerlink" title="3.    元素宽度/高度（5/6）"></a>3.    元素宽度/高度（5/6）</h4><p><code>$(obj).width() = obj.style.width;</code><br><code>$(obj).innerWidth() = obj.style.width+obj.style.padding;</code><br><code>$(obj).outerWidth() = obj.offsetWidth = obj.style.width+obj.style.padding+obj.style.border;</code><br><code>$(obj).outerWidth(true) = obj.style.width+obj.style.padding+obj.style.border+obj.style.margin;</code></p>
 <font color="red"><br>注意：要使用原生的style.xxx方法获取属性，这个元素必须已经有内嵌的样式，如<code>&lt;div style=&quot;....&quot;&gt;&lt;/div&gt;</code>；<br>如果原先是通过外部或内部样式表定义css样式，必须使用<code>obj.currentStyle[xxx] || document.defaultView.getComputedStyle(0)[xxx]</code>来获取样式值<br></font>
 
-<h4 id="4-元素离文档顶部-左边距离"><a href="#4-元素离文档顶部-左边距离" class="headerlink" title="4.    元素离文档顶部/左边距离"></a>4.    元素离文档顶部/左边距离</h4><p>原生js方法：<br>jq方法：<code>$(obj).offset().top/$(obj).offset().left</code></p>
-<p>那么如何判断元素进入可视区域了呢？<br><img src="2.jpg" alt="图2"><br>从图片就很容易看出来，只要做个简单的判断就可以了。<br>比如1和2，1是未进入可视区域的，2是已经进入可视区域的，当文档往上走，1将走到2的位置，我们只要判断1或2的距离顶部的距离小于可视区域的高度，并且元素的右边距离左边界的距离大于0，并且元素左边距离左边界的距离小于可视区域的宽的时候，元素就进入可视区域。其他同理。</p>
+<h4 id="4-元素离文档顶部-左边距离"><a href="#4-元素离文档顶部-左边距离" class="headerlink" title="4.    元素离文档顶部/左边距离"></a>4.    元素离文档顶部/左边距离</h4><p>原生js方法：obj.clientWidth/obg.clientHeight<br>jq方法：<code>$(obj).offset().top/$(obj).offset().left</code></p>
+<p>那么如何判断元素进入可视区域了呢？<br><img src="2.png" alt="图2"><br>从图片就很容易看出来，只要做个简单的判断就可以了。<br>比如1和2，1是未进入可视区域的，2是已经进入可视区域的，当文档往上走，1将走到2的位置，我们只要判断1或2的距离顶部的距离小于可视区域的高度，并且元素的右边距离左边界的距离大于0，并且元素左边距离左边界的距离小于可视区域的宽的时候，元素就进入可视区域。其他同理。</p>
 <p>如果要自己使用原生js或者jq来实现懒加载，那么请结合上面的知识来编写代码，原生js或jq的写法以后将更新</p>
 <p>现在来讲解lazyload.js</p>
 <h3 id="1-引入文件"><a href="#1-引入文件" class="headerlink" title="1.引入文件"></a>1.引入文件</h3><p>lazyload依赖与jquery，所以先引入jquery和lazyload(我使用百度静态资源库，当然也可以下载下来)</p>
@@ -130,12 +130,12 @@
 <p>参数:<code>container</code>，值为某容器.lazyload默认在拉动浏览器滚动条时生效，这个参数可以让你在拉动某DIV的滚动条时依次加载其中的图片</p>
 <h4 id="图片排序混乱时"><a href="#图片排序混乱时" class="headerlink" title="图片排序混乱时"></a>图片排序混乱时</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">failurelimit : 10,</div></pre></td></tr></table></figure>
 <p>参数:<code>failurelimit</code>，值为数字.lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载，但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况，<code>failurelimit</code>意在加载N张可见区域外的图片，以避免出现这个问题</p>
-<p><img src="3.jpg" alt="部分参数表"></p>
+<p><img src="3.png" alt="部分参数表"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="www.praint.cn/2017/03/17/lazyload/" data-id="cj0dzf3f30002do92k435tak1" class="article-share-link">Share</a>
+      <a data-url="www.praint.cn/2017/03/17/lazyload/" data-id="cj0el1ue00000w492o8mfhq5v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
